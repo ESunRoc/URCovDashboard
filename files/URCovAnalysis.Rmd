@@ -15,7 +15,6 @@ library(plotly)
 library(htmlwidgets)
 library(flexdashboard)
 
-setwd("/Users/elisun/Desktop/All the Things/Code Projects/R/UR Covid Analysis")
 data <- read_xlsx("covdata.xlsx")
 
 data$daily.prate <- ifelse(data$Tests == 0, 0, data$Positive/data$Tests)
