@@ -1,8 +1,7 @@
 ---
-title: "Improved Coronavirus Dashboard for the University of Rochester"
+title: "Improved COVID-19 Dashboard for the UofR"
 output: html_document
 ---
-
 ```{r setup, eval=TRUE, echo=FALSE, fig.width=10, fig.height=20, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(readxl)
@@ -36,9 +35,6 @@ oneweekavg <- n.colfunc(data[2:4], 7, mean)
 
 twoweekssum <- n.colfunc(data[2:4], 14, sum)
 oneweeksum <- n.colfunc(data[2:4], 7, sum)
-
-
-
 
 cumlcases <- ggplot(data, aes(x = Date, y = totcases)) +
               geom_line() +
@@ -157,6 +153,13 @@ twoweeks.sumtests <- ggplot(twoweekssum, aes(x=Group.1, y=Tests, group=1)) +
                       labs(x="Fortnights since August 1", title="Cumulative Tests Time Period")
 twst <- ggplotly(twoweeks.sumtests)
 ```
+#### Date: `r  data[nrow(data),1]`
+
+#### Cases in past 24 hours: `r data[nrow(data), 3]`
+
+#### Tests in past 24 hours: `r data[nrow(data), 2]`
+
+#### Positivity Rate in Past 24 Hours: `r data[nrow(data), 4]*100`\%
 ```{r, echo=FALSE, eval=TRUE}
 subplot(cc, GAM.cc, heights=c(.75), widths=c(.5,.5), titleX=TRUE, titleY=TRUE, margin=.05)
 
@@ -179,4 +182,6 @@ subplot(owst, twst, heights=c(.75), widths=c(.5,.5), titleX=TRUE, titleY=TRUE, m
 summary(data[2:ncol(data)])
 ```
 
-[Data, processing scripts, and graph creation can be found on my GitHub]: https://github.com/ESunRoc/URCovDashboard
+
+[Data, processing scripts, and graph creation](https://github.com/ESunRoc/URCovDashboard)  
+.rmd defaults: eval=TRUE, echo=FALSE, fig.width=10, fig.height=20, message=FALSE, warning=FALSE
