@@ -166,7 +166,7 @@ Inputs {.sidebar}
 -----------------------------------------------------------------------
 
 The total number of cases as a function of time.  
-These graphs show more or less what we expect to see; over time, as more tests are conducted, we do expect to see more cases. Ultimately what we'd like to be seeing is a plateau, but given the rates at which cases are spiking all over the country, expecting that of UR is probably unfair.  
+This graph show more or less what we expect to see; over time, as more tests are conducted, we do expect to see more cases. Ultimately what we'd like to be seeing is a plateau, but given the rates at which cases are spiking all over the country, expecting that of UR is probably unfair.  
   
 
 **Date:**  
@@ -178,7 +178,7 @@ These graphs show more or less what we expect to see; over time, as more tests a
 **Positivity Rate in Past 24 Hours:**  
 `r data[nrow(data), 4]*100`\%  
 
-Row
+Row {data-height=675}
 -----------------------------------------------------------------------
 
 ### Raw lineplot
@@ -187,15 +187,6 @@ Row
 cc
 ```
 
-
-Row 
------------------------------------------------------------------------
-
-### Smoothed with a GAM
-
-```{r}
-GAM.cc
-```
 
 Total Testing {data-navmenu="Testing"}
 =====================================  
@@ -214,7 +205,7 @@ Total tests conducted. Again, this is more or less what we expect to see. Over t
 **Positivity Rate in Past 24 Hours:**  
 `r data[nrow(data), 4]*100`\%  
 
-Row
+Row {data-height=675}
 -----------------------------------------------------------------------
 
 ### Raw lineplot
@@ -223,15 +214,6 @@ Row
 ct
 ```
 
-
-Row 
------------------------------------------------------------------------
-
-### Smoothed with a GAM
-
-```{r}
-GAM.ct
-```
 
 Daily (+) Rate {data-navmenu="Positivity Rates"}
 =====================================  
@@ -249,7 +231,7 @@ Daily positivity rate. This is perhaps the most important statistic that can be 
 **Positivity Rate in Past 24 Hours:**  
 `r data[nrow(data), 4]*100`\%  
 
-Row
+Row {.tabset data-height=675}
 -----------------------------------------------------------------------
 
 ### Raw lineplot
@@ -259,8 +241,6 @@ dpr
 ```
 
 
-Row 
------------------------------------------------------------------------
 
 ### Smoothed with a GAM
 
@@ -269,18 +249,24 @@ GAM.dpr
 ```
 
 
+
 Rolling (+) Rate {data-navmenu="Positivity Rates"}
 =====================================  
 Inputs {.sidebar}
 -----------------------------------------------------------------------
+Rolling Average Positivity Rate (window of n=7). By using a rolling average of the daily positivity rate over a window of 1 week, we accomplish a similar feat to smoothing it with a GAM while still retaining information that may otherwise have been glossed over. Further, it provides a metric that many states/local governments use in determining the severity of a given outbreak (eg, previous iterations of NY State's travel advisory). While there is an argument to be made for using static windows of 14 days, or 2 weeks, as this is what NY uses in determining if a "pause" must be initiated, I feel like that's a bit misleading of a statistic. For one, cases don't simply "disappear" after that 14 day window finishes and we move into the next. So while, yes, a 7 day rolling average doesn't do a perfect job of capturing and charting active cases, I feel like it does a better enough job of it to justify its use vs a static window.  
   
-  ```{r}
+**Date:**  
+`r  data[nrow(data),1]`  
+**Cases in past 24 hours:**  
+`r data[nrow(data), 3]`  
+**Tests in past 24 hours:**  
+`r data[nrow(data), 2]`  
+**Positivity Rate in Past 24 Hours:**  
+`r data[nrow(data), 4]*100`\%  
 
-```
 
-sidebar on page 2
-
-Row
+Row {.tabset data-height=675}
 -----------------------------------------------------------------------
 
 ### Raw lineplot
@@ -290,8 +276,7 @@ rpr
 ```
 
 
-Row 
------------------------------------------------------------------------
+
 
 ### Smoothed with a GAM
 
@@ -305,13 +290,18 @@ Rolling tests/day {data-navmenu="Testing"}
 Inputs {.sidebar}
 -----------------------------------------------------------------------
   
-  ```{r}
+Rolling average tests conducted per day (window n=7). Charting the number of tests conducted is really more an exercise in keeping the University honest than actually checking the degree of spread. The University said early on that they would be conducting approximately 400 random surveillance tests per week on asymptomatic students. They said they wouldn't be testing on weekends, so this rolling average should hover around 80, for the most part, dipping when there are several weekend days included. Suffice it to say this is not what we see. We do see a spike around the time students were brought back to campus, and again when the University secured rapid tests, but in between these spikes, there was simply not enough testing. Or maybe there was. Without knowing the underlying population size, which the University so far refuses to provide to me, they close themselves off to all criticism/critique. I can't say if their weekly testing regimin is statistically significant or not since I don't know this number.
 
-```
+**Date:**  
+`r  data[nrow(data),1]`  
+**Cases in past 24 hours:**  
+`r data[nrow(data), 3]`  
+**Tests in past 24 hours:**  
+`r data[nrow(data), 2]`  
+**Positivity Rate in Past 24 Hours:**  
+`r data[nrow(data), 4]*100`\%  
 
-sidebar on page 2
-
-Row
+Row {.tabset data-height=675}
 -----------------------------------------------------------------------
 
 ### Raw lineplot
@@ -320,9 +310,6 @@ Row
 rtg
 ```
 
-
-Row 
------------------------------------------------------------------------
 
 ### Smoothed with a GAM
 
@@ -336,13 +323,19 @@ Cases per day {data-navmenu="Cases"}
 Inputs {.sidebar}
 -----------------------------------------------------------------------
   
-  ```{r}
+Number of new cases per day. This is rather self-explanatory. On its own, this number has several problems. First, it isn't standardized, which makes it impossible to compare to other areas. Second, it has a strict upper bound. It is possible (however unlikely) that the true number of cases per day is orders of magnitude greater than what is actually captured through the performed testing. But if only 7 people are tested, you will find at most 7 cases (or you would, if almost 50\% of the University's cases were not self-reported. But that's a totally different, even larger, problem.) The main value of this number is its enabling of the creation of other metrics, such as daily/rolling (+) rate(s).  
+As another note, to preempt the thought, no, testing does not result in more cases. Testing allows you to *see* the cases that are there. This narrative that comes from the top down in this country of "Oh we have cases *because* we test" is totally full of it and really just a tactic to deny science and reality.
 
-```
+**Date:**  
+`r  data[nrow(data),1]`  
+**Cases in past 24 hours:**  
+`r data[nrow(data), 3]`  
+**Tests in past 24 hours:**  
+`r data[nrow(data), 2]`  
+**Positivity Rate in Past 24 Hours:**  
+`r data[nrow(data), 4]*100`\%  
 
-sidebar on page 2
-
-Row
+Row {.tabset data-height=675}
 -----------------------------------------------------------------------
 
 ### Raw lineplot
@@ -352,8 +345,6 @@ cpd
 ```
 
 
-Row 
------------------------------------------------------------------------
 
 ### Smoothed with a GAM
 
@@ -367,13 +358,18 @@ Tests per day {data-navmenu="Testing"}
 Inputs {.sidebar}
 -----------------------------------------------------------------------
   
-  ```{r}
+Average tests performed per day. The same as rolling average tests per day, but markedly worse for the reasons mentioned in "Rolling (+) Rate." Not without value, just eclipsed if you are looking for a sense of change over time.  
+**Date:**  
+`r  data[nrow(data),1]`  
+**Cases in past 24 hours:**  
+`r data[nrow(data), 3]`  
+**Tests in past 24 hours:**  
+`r data[nrow(data), 2]`  
+**Positivity Rate in Past 24 Hours:**  
+`r data[nrow(data), 4]*100`\%  
+ 
 
-```
-
-sidebar on page 2
-
-Row
+Row {.tabset data-height=675}
 -----------------------------------------------------------------------
 
 ### Raw lineplot
@@ -383,8 +379,6 @@ tpd
 ```
 
 
-Row 
------------------------------------------------------------------------
 
 ### Smoothed with a GAM
 
@@ -398,26 +392,29 @@ Average Tests per Unit Time {data-navmenu="Testing"}
 Inputs {.sidebar}
 -----------------------------------------------------------------------
   
-  ```{r}
+Average tests per day per week/fortnight. This is primarily for keeping the University honest. For similar reasons as outlined in "Rolling tests/day," this metric allows us to see just how many tests the University is conducting, on average, over time. By blocking the average by week, we hopefully reduce the variation created by potentially having more than 2 weekend (ie, "low to zero" testing days) days included in the average at any given time. We also block by fortnight (2 weeks, for the uninitiated) to simulate the "14-day windows" that NYS uses as blocks.   
+**Date:**  
+`r  data[nrow(data),1]`  
+**Cases in past 24 hours:**  
+`r data[nrow(data), 3]`  
+**Tests in past 24 hours:**  
+`r data[nrow(data), 2]`  
+**Positivity Rate in Past 24 Hours:**  
+`r data[nrow(data), 4]*100`\%  
 
-```
-
-sidebar on page 2
-
-Row
+Row {.tabset data-height=675}
 -----------------------------------------------------------------------
 
-### 7 day blocs
+### 7 day blocks
 
 ```{r}
 owat
 ```
 
 
-Row 
------------------------------------------------------------------------
 
-### 14 day blocs
+
+### 14 day blocks
 
 ```{r}
 twsat
@@ -430,28 +427,40 @@ Total Tests per Unit Time {data-navmenu="Testing"}
 Inputs {.sidebar}
 -----------------------------------------------------------------------
   
-  ```{r}
+Cumulative tests per week/fortnight. Since the University said they would be performing appx. 400 tests per week, we can check this. The University claimed this would be Monday-Friday, but I included the weekends in order to catch any tests that may have slipped through. Additionally, this isn't only surveillance tests. This is all tests. Since the University doesn't distinguish between surveillance tests, and tests for contact tracing, I didn't either. For a vast majority of the semester, the University appears to have failed in their testing goals. Expanding into fortnights (2 week blocks) doesn't make it look much better, if we expect to see appx 800 tests per 14 day period.  
+**Date:**  
+`r  data[nrow(data),1]`  
+**Cases in past 24 hours:**  
+`r data[nrow(data), 3]`  
+**Tests in past 24 hours:**  
+`r data[nrow(data), 2]`  
+**Positivity Rate in Past 24 Hours:**  
+`r data[nrow(data), 4]*100`\%  
 
-```
-
-sidebar on page 2
-
-Row
+Row {.tabset data-height=675}
 -----------------------------------------------------------------------
 
-### 7 day blocs
+### 7 day blocks
 
 ```{r}
 owst
 ```
 
 
-Row 
------------------------------------------------------------------------
 
-### 14 day blocs
+
+### 14 day blocks
 
 ```{r}
 twst
 ```
 
+
+
+A Note About GAMs
+=====================================  
+
+### GAMs and GAM smoothing
+
+The graphs marked "Smoothed with a GAM" are exactly that: the raw lineplot, but smoothed with a Generalized Additive Model (GAM). These are **NOT** forecasts. Not only do I not know forecast without knowing the underlying population size and several other key measures, but I don't know how to do it at all. While I could learn, I am not an epidemiologist and there are many, many wonderful people out there doing forecasts for COVID-19 cases/deaths who already know what they're doing (and do it really, really well).  
+So why do I include these charts at all, then? Humans are really not great at interpreting raw lineplots for time series data. In the short term they're super jagged and don't provide super clear information for how things are changing over time. This is where smoothing helps. By smoothing the data, it's easier to see how the given Y-axis data changes with respect to time. Since it's smoothed, it loses a level of precision/accuracy, so it is by no means the best way to approach it, but the convenience of GAM smoothing being built into `ggplot2` combined with "good enough" accuracy made it my first choice. If anyone has a better idea/technique that I didn't think of, please reach out to me at `elisun@me.com`. I don't want to be misrepresenting any of the data, so I'm open to suggestions for how I can improve it.
