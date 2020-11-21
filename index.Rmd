@@ -1,8 +1,13 @@
 ---
 title: "Improved COVID-19 Dashboard for the UofR"
-output: html_document
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    source_code: embed
+runtime: shiny
 ---
-```{r setup, eval=TRUE, echo=FALSE, fig.width=10, fig.height=20, message=FALSE, warning=FALSE}
+
+```{r global, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(readxl)
 library(tidyverse)
@@ -12,7 +17,6 @@ library(gridExtra)
 library(grid)
 library(plotly)
 library(htmlwidgets)
-library(flexdashboard)
 
 data <- read_xlsx("covdata.xlsx")
 
@@ -153,35 +157,300 @@ twoweeks.sumtests <- ggplot(twoweekssum, aes(x=Group.1, y=Tests, group=1)) +
                       labs(x="Fortnights since August 1", title="Cumulative Tests Time Period")
 twst <- ggplotly(twoweeks.sumtests)
 ```
-#### Date: `r  data[nrow(data),1]`
 
-#### Cases in past 24 hours: `r data[nrow(data), 3]`
+Total Cases {data-navmenu="Cases"}
+=====================================  
+    
+Inputs {.sidebar}
+-----------------------------------------------------------------------
 
-#### Tests in past 24 hours: `r data[nrow(data), 2]`
+The total number of cases as a function of time.  
+These graphs show more or less what we expect to see; over time, as more tests are conducted, we do expect to see more cases. Ultimately what we'd like to be seeing is a plateau, but given the rates at which cases are spiking all over the country, expecting that of UR is probably unfair.  
+  
 
-#### Positivity Rate in Past 24 Hours: `r data[nrow(data), 4]*100`\%
-```{r, echo=FALSE, eval=TRUE}
-subplot(cc, GAM.cc, heights=c(.75), widths=c(.5,.5), titleX=TRUE, titleY=TRUE, margin=.05)
+**Date:**  
+`r  data[nrow(data),1]`  
+**Cases in past 24 hours:**  
+`r data[nrow(data), 3]`  
+**Tests in past 24 hours:**  
+`r data[nrow(data), 2]`  
+**Positivity Rate in Past 24 Hours:**  
+`r data[nrow(data), 4]*100`\%  
 
-subplot(ct, GAM.ct, heights=c(.75), widths=c(.5,.5), titleX=TRUE, titleY=TRUE, margin=.05)
+Row
+-----------------------------------------------------------------------
 
-subplot(dpr, GAM.dpr, heights=c(.75), widths=c(.5,.5), titleX=TRUE, titleY=TRUE, margin=.05)
+### Raw lineplot
 
-subplot(rpr, GAM.rpr, heights=c(.75), widths=c(.5,.5), titleX=TRUE, titleY=TRUE, margin=.05)
-
-subplot(rtg, GAM.rtg, heights=c(.5), widths=c(.5,.5), titleX=TRUE, titleY=TRUE, margin=.05)
-
-subplot(cpd, GAM.cpd, heights=c(.75), widths=c(.5,.5), titleX=TRUE, titleY=TRUE, margin=.05)
-
-subplot(tpd, GAM.tpd, heights=c(.75), widths=c(.5,.5), titleX=TRUE, titleY=TRUE, margin=.05)
-
-subplot(owat, twsat, heights=c(.75), widths=c(.5,.5), titleX=TRUE, titleY=TRUE, margin=.05)
-
-subplot(owst, twst, heights=c(.75), widths=c(.5,.5), titleX=TRUE, titleY=TRUE, margin=.05)
-
-summary(data[2:ncol(data)])
+```{r}
+cc
 ```
 
 
-[Data, processing scripts, and graph creation](https://github.com/ESunRoc/URCovDashboard)  
-.rmd defaults: eval=TRUE, echo=FALSE, fig.width=10, fig.height=20, message=FALSE, warning=FALSE
+Row 
+-----------------------------------------------------------------------
+
+### Smoothed with a GAM
+
+```{r}
+GAM.cc
+```
+
+Total Testing {data-navmenu="Testing"}
+=====================================  
+Inputs {.sidebar}
+-----------------------------------------------------------------------
+
+
+Total tests conducted. Again, this is more or less what we expect to see. Over time, the number of total tests conducted (assuming they don't simply *stop* testing people) will continue to increase without limit. What is the rate of this increase (explored in greater detail via other charts). To highlight here are August 16-17, where the first glut of students began to arrive back on campus, and November 16-17, when the University began use of the so-called "Rapid" tests. The true reliability rate of these latter tests is unknown, especially when used on asymptomatic persons, so while I would like to be able to distinguish between the types of tests used, this is made *very* difficult by the lack of test-specific data from the university.  
+
+**Date:**  
+`r  data[nrow(data),1]`  
+**Cases in past 24 hours:**  
+`r data[nrow(data), 3]`  
+**Tests in past 24 hours:**  
+`r data[nrow(data), 2]`  
+**Positivity Rate in Past 24 Hours:**  
+`r data[nrow(data), 4]*100`\%  
+
+Row
+-----------------------------------------------------------------------
+
+### Raw lineplot
+
+```{r}
+ct
+```
+
+
+Row 
+-----------------------------------------------------------------------
+
+### Smoothed with a GAM
+
+```{r}
+GAM.ct
+```
+
+Daily (+) Rate {data-navmenu="Positivity Rates"}
+=====================================  
+Inputs {.sidebar}
+-----------------------------------------------------------------------
+
+Daily positivity rate. This is perhaps the most important statistic that can be provided when talking about COVID-19 in general terms. Why? Well, because it's a standardized metric. Positivity rate is simply the number of positive tests divided by the number of tests conducted. Therefore, a state like ND, that may only conduct 10-15,000 tests per day, can be directly equated to, say, CA, which may conduct 100-200,000 tests per day. And here it is where we see the UofR is being less-than-transparent. These numbers don't look great for them. They'd look much better if more people were tested, however. This is because, primarily, of a handful of days where testing was in the single digits but a single digit number of cases was also found. In reality this is likely not representative of the true population, but since the true population size is unknown, we can't actually say this and thus, cannot actually say it's definitely a statistical outlier.
+
+**Date:**  
+`r  data[nrow(data),1]`  
+**Cases in past 24 hours:**  
+`r data[nrow(data), 3]`  
+**Tests in past 24 hours:**  
+`r data[nrow(data), 2]`  
+**Positivity Rate in Past 24 Hours:**  
+`r data[nrow(data), 4]*100`\%  
+
+Row
+-----------------------------------------------------------------------
+
+### Raw lineplot
+
+```{r}
+dpr
+```
+
+
+Row 
+-----------------------------------------------------------------------
+
+### Smoothed with a GAM
+
+```{r}
+GAM.dpr
+```
+
+
+Rolling (+) Rate {data-navmenu="Positivity Rates"}
+=====================================  
+Inputs {.sidebar}
+-----------------------------------------------------------------------
+  
+  ```{r}
+
+```
+
+sidebar on page 2
+
+Row
+-----------------------------------------------------------------------
+
+### Raw lineplot
+
+```{r}
+rpr
+```
+
+
+Row 
+-----------------------------------------------------------------------
+
+### Smoothed with a GAM
+
+```{r}
+GAM.rpr
+```
+
+
+Rolling tests/day {data-navmenu="Testing"}
+=====================================  
+Inputs {.sidebar}
+-----------------------------------------------------------------------
+  
+  ```{r}
+
+```
+
+sidebar on page 2
+
+Row
+-----------------------------------------------------------------------
+
+### Raw lineplot
+
+```{r}
+rtg
+```
+
+
+Row 
+-----------------------------------------------------------------------
+
+### Smoothed with a GAM
+
+```{r}
+GAM.rtg
+```
+
+
+Cases per day {data-navmenu="Cases"}
+=====================================  
+Inputs {.sidebar}
+-----------------------------------------------------------------------
+  
+  ```{r}
+
+```
+
+sidebar on page 2
+
+Row
+-----------------------------------------------------------------------
+
+### Raw lineplot
+
+```{r}
+cpd
+```
+
+
+Row 
+-----------------------------------------------------------------------
+
+### Smoothed with a GAM
+
+```{r}
+GAM.cpd
+```
+
+
+Tests per day {data-navmenu="Testing"}
+=====================================  
+Inputs {.sidebar}
+-----------------------------------------------------------------------
+  
+  ```{r}
+
+```
+
+sidebar on page 2
+
+Row
+-----------------------------------------------------------------------
+
+### Raw lineplot
+
+```{r}
+tpd
+```
+
+
+Row 
+-----------------------------------------------------------------------
+
+### Smoothed with a GAM
+
+```{r}
+GAM.tpd
+```
+
+
+Average Tests per Unit Time {data-navmenu="Testing"}
+=====================================  
+Inputs {.sidebar}
+-----------------------------------------------------------------------
+  
+  ```{r}
+
+```
+
+sidebar on page 2
+
+Row
+-----------------------------------------------------------------------
+
+### 7 day blocs
+
+```{r}
+owat
+```
+
+
+Row 
+-----------------------------------------------------------------------
+
+### 14 day blocs
+
+```{r}
+twsat
+```
+
+
+
+Total Tests per Unit Time {data-navmenu="Testing"}
+=====================================  
+Inputs {.sidebar}
+-----------------------------------------------------------------------
+  
+  ```{r}
+
+```
+
+sidebar on page 2
+
+Row
+-----------------------------------------------------------------------
+
+### 7 day blocs
+
+```{r}
+owst
+```
+
+
+Row 
+-----------------------------------------------------------------------
+
+### 14 day blocs
+
+```{r}
+twst
+```
+
