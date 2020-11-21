@@ -1,0 +1,10 @@
+name: ur_covid_data
+title:
+username:
+account: elisun
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3277361
+bundleId: 3887101
+url: https://elisun.shinyapps.io/ur_covid_data/
+when: 1605925417.836
