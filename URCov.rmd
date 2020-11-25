@@ -1,5 +1,5 @@
 ---
-title: "Improved COVID-19 Dashboard for the UofR"
+title: "COVID-19 Dashboard for the UofR"
 output: 
   flexdashboard::flex_dashboard:
     orientation: rows
@@ -290,7 +290,10 @@ Rolling tests/day {data-navmenu="Testing"}
 Inputs {.sidebar}
 -----------------------------------------------------------------------
   
-Rolling average tests conducted per day (window n=7). Charting the number of tests conducted is really more an exercise in keeping the University honest than actually checking the degree of spread. The University said early on that they would be conducting approximately 400 random surveillance tests per week on asymptomatic students. They said they wouldn't be testing on weekends, so this rolling average should hover around 80, for the most part, dipping when there are several weekend days included. Suffice it to say this is not what we see. We do see a spike around the time students were brought back to campus, and again when the University secured rapid tests, but in between these spikes, there was simply not enough testing. Or maybe there was. Without knowing the underlying population size, which the University so far refuses to provide to me, they close themselves off to all criticism/critique. I can't say if their weekly testing regimin is statistically significant or not since I don't know this number.
+Rolling average tests conducted per day (window n=7). Charting the number of tests conducted is really more an exercise in keeping the University honest than actually checking the degree of spread. The University said early on that they would be conducting approximately 400 random surveillance tests per week on asymptomatic students. They said they wouldn't be testing on weekends, so this rolling average should hover around 80, for the most part, dipping when there are several weekend days included. Suffice it to say this is not what we see. We do see a spike around the time students were brought back to campus, and again when the University secured rapid tests, but in between these spikes, there was simply not enough testing. Or maybe there was. I can't say if their weekly testing regimin is statistically significant or not since I don't know this number.  
+**NOTE:**  
+Since the creation of this dashboard, Dean Runner responded to an email expressing my concerns and questions regarding the underlying data. According to this reply, there were approximately 3200 students. To quote Dean Runner on the number 400 was reached: "The number 400 was determined in consultation with Dr. Rob Strawderman, the Chair of Biostatistics in the Medical Center, who worked with the team to identify an appropriate threshold at which we could be confident that a certain number of positive results in a week would indicate a certain level of infection increase."  
+My thanks to Dean Runner for this information.
 
 **Date:**  
 `r  data[nrow(data),1]`  
@@ -359,6 +362,10 @@ Inputs {.sidebar}
 -----------------------------------------------------------------------
   
 Average tests performed per day. The same as rolling average tests per day, but markedly worse for the reasons mentioned in "Rolling (+) Rate." Not without value, just eclipsed if you are looking for a sense of change over time.  
+**NOTE:**  
+Since the creation of this dashboard, Dean Runner responded to an email expressing my concerns and questions regarding the underlying data. According to this reply, there were approximately 3200 students. To quote Dean Runner on the number 400 was reached: "The number 400 was determined in consultation with Dr. Rob Strawderman, the Chair of Biostatistics in the Medical Center, who worked with the team to identify an appropriate threshold at which we could be confident that a certain number of positive results in a week would indicate a certain level of infection increase."  
+My thanks to Dean Runner for this information.  
+
 **Date:**  
 `r  data[nrow(data),1]`  
 **Cases in past 24 hours:**  
@@ -393,6 +400,10 @@ Inputs {.sidebar}
 -----------------------------------------------------------------------
   
 Average tests per day per week/fortnight. This is primarily for keeping the University honest. For similar reasons as outlined in "Rolling tests/day," this metric allows us to see just how many tests the University is conducting, on average, over time. By blocking the average by week, we hopefully reduce the variation created by potentially having more than 2 weekend (ie, "low to zero" testing days) days included in the average at any given time. We also block by fortnight (2 weeks, for the uninitiated) to simulate the "14-day windows" that NYS uses as blocks.   
+**NOTE:**  
+Since the creation of this dashboard, Dean Runner responded to an email expressing my concerns and questions regarding the underlying data. According to this reply, there were approximately 3200 students. To quote Dean Runner on the number 400 was reached: "The number 400 was determined in consultation with Dr. Rob Strawderman, the Chair of Biostatistics in the Medical Center, who worked with the team to identify an appropriate threshold at which we could be confident that a certain number of positive results in a week would indicate a certain level of infection increase."  
+My thanks to Dean Runner for this information.  
+
 **Date:**  
 `r  data[nrow(data),1]`  
 **Cases in past 24 hours:**  
@@ -428,6 +439,10 @@ Inputs {.sidebar}
 -----------------------------------------------------------------------
   
 Cumulative tests per week/fortnight. Since the University said they would be performing appx. 400 tests per week, we can check this. The University claimed this would be Monday-Friday, but I included the weekends in order to catch any tests that may have slipped through. Additionally, this isn't only surveillance tests. This is all tests. Since the University doesn't distinguish between surveillance tests, and tests for contact tracing, I didn't either. For a vast majority of the semester, the University appears to have failed in their testing goals. Expanding into fortnights (2 week blocks) doesn't make it look much better, if we expect to see appx 800 tests per 14 day period.  
+**NOTE:**  
+Since the creation of this dashboard, Dean Runner responded to an email expressing my concerns and questions regarding the underlying data. According to this reply, there were approximately 3200 students. To quote Dean Runner on the number 400 was reached: "The number 400 was determined in consultation with Dr. Rob Strawderman, the Chair of Biostatistics in the Medical Center, who worked with the team to identify an appropriate threshold at which we could be confident that a certain number of positive results in a week would indicate a certain level of infection increase."  
+My thanks to Dean Runner for this information.  
+
 **Date:**  
 `r  data[nrow(data),1]`  
 **Cases in past 24 hours:**  
