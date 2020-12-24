@@ -35,11 +35,11 @@ n.colfunc <- function(df, n=7, func){
             FUN = func)
 }
 
-twoweeksavg <- n.colfunc(data[2:4], 14, mean)
-oneweekavg <- n.colfunc(data[2:4], 7, mean)
+twoweeksavg <- as.data.frame(n.colfunc(data[2:4], 14, mean))
+oneweekavg <- as.data.frame(n.colfunc(data[2:4], 7, mean))
 
-twoweekssum <- n.colfunc(data[2:4], 14, sum)
-oneweeksum <- n.colfunc(data[2:4], 7, sum)
+twoweekssum <- as.data.frame(n.colfunc(data[2:4], 14, sum))
+oneweeksum <- as.data.frame(n.colfunc(data[2:4], 7, sum))
 
 cumlcases <- ggplot(data, aes(x = Date, y = totcases)) +
               geom_line() +
@@ -133,30 +133,30 @@ GAM.testsperday <- ggplot(data, aes(x=Date, y=Tests)) +
 GAM.tpd <- ggplotly(GAM.testsperday, height=650, width=1100)
 
 
-oneweek.avgtests <- ggplot(oneweekavg, aes(x=Group.1, y=Tests)) +
+oneweek.avgtests <- ggplot(oneweekavg, aes(x=as.numeric(Group.1), y=Tests)) +
                       geom_line() + 
                       labs(x="Weeks since August 1", title="Average Tests Over Time Period", 
                            subtitle = "Temporal mean, t=7")
-owat <- ggplotly(oneweek.avgtests, height=650, width=1100)
+owat <- ggplotly(oneweek.avgtests, height=625, width=1100)
 
 
-twoweeks.avgtests <- ggplot(twoweeksavg, aes(x=Group.1, y=Tests)) +
+twoweeks.avgtests <- ggplot(twoweeksavg, aes(x=as.numeric(Group.1), y=Tests)) +
                       geom_line() + 
                       labs(x="Fortnights since August 1", title="Average Tests Over Time Period", 
                            subtitle = "Temporal mean, t=14")
-twsat <- ggplotly(twoweeks.avgtests, height=650, width=1100)
+twsat <- ggplotly(twoweeks.avgtests, height=625, width=1100)
 
 
-oneweek.sumtests <- ggplot(oneweeksum, aes(x=Group.1, y=Tests)) +
+oneweek.sumtests <- ggplot(oneweeksum, aes(x=as.numeric(Group.1), y=Tests)) +
                       geom_line() + 
                       labs(x="Weeks since August 1", title="Cumulative Tests Time Period")
-owst <- ggplotly(oneweek.sumtests, height=650, width=1100)
+owst <- ggplotly(oneweek.sumtests, height=625, width=1100)
 
   
-twoweeks.sumtests <- ggplot(twoweekssum, aes(x=Group.1, y=Tests)) +
+twoweeks.sumtests <- ggplot(twoweekssum, aes(x=as.numeric(Group.1), y=Tests)) +
                       geom_line() + 
                       labs(x="Fortnights since August 1", title="Cumulative Tests Time Period")
-twst <- ggplotly(twoweeks.sumtests, height=650, width=1100)
+twst <- ggplotly(twoweeks.sumtests, height=625, width=1100)
 ```
 
 Total Cases {data-navmenu="Cases"}
