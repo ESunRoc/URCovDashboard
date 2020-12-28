@@ -21,7 +21,7 @@ library(htmlwidgets)
 
 data <- read_xlsx("covdata.xlsx")
 
-data$daily.prate <- ifelse(data$Tests == 0, 0, data$Positive/data$Tests)
+data$daily.prate <- ifelse(data$Tests<data$Positive, 1, ifelse(data$Tests==0, 0, data$Positive/data$Tests))
 data$totcases <- cumsum(data$Positive)
 data$tottests <- cumsum(data$Tests)
 
@@ -479,3 +479,10 @@ A Note About GAMs
 
 The graphs marked "Smoothed with a GAM" are exactly that: the raw lineplot, but smoothed with a Generalized Additive Model (GAM). These are **NOT** forecasts. Not only do I not know forecast without knowing the underlying population size and several other key measures, but I don't know how to do it at all. While I could learn, I am not an epidemiologist and there are many, many wonderful people out there doing forecasts for COVID-19 cases/deaths who already know what they're doing (and do it really, really well).  
 So why do I include these charts at all, then? Humans are really not great at interpreting raw lineplots for time series data. In the short term they're super jagged and don't provide super clear information for how things are changing over time. This is where smoothing helps. By smoothing the data, it's easier to see how the given Y-axis data changes with respect to time. Since it's smoothed, it loses a level of precision/accuracy, so it is by no means the best way to approach it, but the convenience of GAM smoothing being built into `ggplot2` combined with "good enough" accuracy made it my first choice. If anyone has a better idea/technique that I didn't think of, please reach out to me at `elisun@me.com`. I don't want to be misrepresenting any of the data, so I'm open to suggestions for how I can improve it.
+
+A Note About Positivity Rates
+=====================================  
+# Positivity Rates of 100\%
+There are now a handful of days where the number of tests conducted is smaller than the number of positive cases recorded. At the time of writing (12/28/2020), those dates are: 10/27/20, 12/26/20, 12/27/20, 12/28/20. Prior to this time, I chose to record days on which this unfortunate condition was met as having "0"\% positivity rate. This isn't correct, obviously, but the alternatives were not reporting the day (which was infeasible since there were cases on those days), reporting a divide by 0 error (infeasible since this would graphically result in the same as above), or setting the positivity rate to infinity (infeasible due to its impact on the rolling positivity rate).  
+The previous method sufficed should there only be one or two days where the testing failed to report an accurate positivity rate, but now that there are 4 such days, a number I fully expect to increase, this isn't a tenable solution. As such, the new method is to set the positivity rate for such days to be 100\%. This, too, is not ideal given the impact that it will have on the rolling statistics, but this is a rather appropriate penalty for inadequate testing on those days.  
+At this time, this penalty is constant; that is, regardless of whether there were 0 tests conducted with 1 case self-reported, or 2 tests conducted with 20 cases self reported, the positivity rate will be set to 100\%. In the future, this may change to a linear penalty, but I'm yet to make a decision on how best to address that. I will update this section in the future should such changes be made. Again, please contact me at `elisun@me.com` with any suggestions/comments/critiques.
