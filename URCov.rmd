@@ -1,10 +1,11 @@
 ---
 title: "COVID Dashboard for the UofR"
+date: '`r format(Sys.time(), "%B %d, %Y")`'
 output: 
   flexdashboard::flex_dashboard:
-    orientation: rows
+    orientation: columns
     source_code: embed
-    vertical_layout: scroll
+    vertical_layout: fill
 runtime: shiny
 ---
 
@@ -41,122 +42,6 @@ oneweekavg <- as.data.frame(n.colfunc(data[2:4], 7, mean))
 twoweekssum <- as.data.frame(n.colfunc(data[2:4], 14, sum))
 oneweeksum <- as.data.frame(n.colfunc(data[2:4], 7, sum))
 
-cumlcases <- ggplot(data, aes(x = Date, y = totcases)) +
-              geom_line() +
-              scale_y_continuous(breaks=seq(0, max(data$totcases)+5 ,5)) +  
-              labs(x = "Date", y = "Total Cases (to Date)", title = "Cumulative cases as a function of time")
-cc <- ggplotly(cumlcases, height=650, width=1100)
-
-
-GAM.cumlcases <- ggplot(data, aes(x = Date, y = totcases)) +
-                  geom_smooth(method = "gam", size = 1) +
-                  scale_y_continuous(breaks=seq(0, max(data$totcases)+5 ,5)) + 
-                  labs(x = "Date", y = "Total Cases (to Date)", title = "Cumulative cases as a function of time")
-GAM.cc <- ggplotly(GAM.cumlcases, height=650, width=1100)
-
-
-cumltests <- ggplot(data, aes(x = Date, y = tottests)) +
-              geom_line() +
-              labs(x = "Date", y = "Number of Tests", title = "Cumulative Testing as a function of time")
-ct <- ggplotly(cumltests, height=650, width=1100)
-
-
-GAM.cumltests <- ggplot(data, aes(x = Date, y = tottests)) +
-                  geom_smooth(method = "gam", size = 1) +
-                  labs(x = "Date", y="Number of Tests", title = "Cumulative Testing as a function of time")
-GAM.ct <- ggplotly(GAM.cumltests, height=650, width=1100)
-
-
-dailyposrate <- ggplot(data, aes(x = Date, y = daily.prate)) +
-                geom_line() + 
-                labs(x = "Date", y = "Positivity Rate", title = "Daily positivity rate",
-                     subtitle = "Aligned right")
-dpr <- ggplotly(dailyposrate, height=650, width=1100)
-
-
-GAM.dailyposrate <- ggplot(data, aes(x = Date, y = daily.prate)) +
-                    geom_smooth(method = "gam", size = 1) + 
-                    labs(x = "Date", y = "Positivity Rate", title = "Daily positivity rate",
-                         subtitle = "Aligned right")
-GAM.dpr <- ggplotly(GAM.dailyposrate, height=650, width=1100)
-
-
-rollposrate <- ggplot(data, aes(x = Date, y = rolldaily.prate)) +
-                geom_line() + 
-                labs(x = "Date", y = "Positivity Rate", title = "7 day rolling positivity rate",
-                     subtitle = "Aligned right")
-rpr <- ggplotly(rollposrate, height=650, width=1100)
-
-
-GAM.rollposrate <- ggplot(data, aes(x = Date, y = rolldaily.prate)) +
-                    geom_smooth(method = "gam", size = 1) + 
-                    labs(x = "Date", y = "Positivity Rate", title = "7 day rolling positivity rate",
-                         subtitle = "Aligned right")
-GAM.rpr <- ggplotly(GAM.rollposrate, height=650, width=1100)
-
-
-rolltestsgraph <- ggplot(data, aes(x=Date, y=rolltests)) + 
-                    geom_line()+
-                    labs(x="Date", y="Tests Conducted", title = "7 day rolling tests per day",
-                         subtitle = "Aligned Right")
-rtg <- ggplotly(rolltestsgraph, height=650, width=1100)
-
-
-GAM.rolltestsgraph <- ggplot(data, aes(x=Date, y=rolltests)) + 
-                        geom_smooth(method = "gam", size = 1) +
-                        labs(x="Date", y="Tests Conducted", title = "7 day rolling tests per day",
-                             subtitle = "Aligned Right")
-GAM.rtg <- ggplotly(GAM.rolltestsgraph, height=650, width=1100)
-
-
-casesperday <- ggplot(data, aes(x=Date, y=Positive)) + 
-                geom_line()+
-                labs(x = "Date", y = "Cases", title = "New cases per day")
-cpd <- ggplotly(casesperday, height=650, width=1100)
-
-
-GAM.casesperday <- ggplot(data, aes(x=Date, y=Positive)) + 
-                    geom_smooth()+
-                    labs(x = "Date", y = "Cases", title = "New cases per day")
-GAM.cpd <- ggplotly(GAM.casesperday, height=650, width=1100)
-
-
-testsperday <- ggplot(data, aes(x=Date, y=Tests)) + 
-                geom_line()+
-                labs(x = "Date", y = "Tests", title = "Tests per day")
-tpd <- ggplotly(testsperday, height=650, width=1100)
-
-
-GAM.testsperday <- ggplot(data, aes(x=Date, y=Tests)) + 
-                    geom_smooth(method = "gam", size=1)+
-                    labs(x = "Date", y = "Tests", title = "Tests per day")
-GAM.tpd <- ggplotly(GAM.testsperday, height=650, width=1100)
-
-
-oneweek.avgtests <- ggplot(oneweekavg, aes(x=as.numeric(Group.1), y=Tests)) +
-                      geom_line() + 
-                      labs(x="Weeks since August 1", title="Average Tests Over Time Period", 
-                           subtitle = "Temporal mean, t=7")
-owat <- ggplotly(oneweek.avgtests, height=625, width=1100)
-
-
-twoweeks.avgtests <- ggplot(twoweeksavg, aes(x=as.numeric(Group.1), y=Tests)) +
-                      geom_line() + 
-                      labs(x="Fortnights since August 1", title="Average Tests Over Time Period", 
-                           subtitle = "Temporal mean, t=14")
-twsat <- ggplotly(twoweeks.avgtests, height=625, width=1100)
-
-
-oneweek.sumtests <- ggplot(oneweeksum, aes(x=as.numeric(Group.1), y=Tests)) +
-                      geom_line() + 
-                      labs(x="Weeks since August 1", title="Cumulative Tests Time Period")
-owst <- ggplotly(oneweek.sumtests, height=625, width=1100)
-
-  
-twoweeks.sumtests <- ggplot(twoweekssum, aes(x=as.numeric(Group.1), y=Tests)) +
-                      geom_line() + 
-                      labs(x="Fortnights since August 1", title="Cumulative Tests Time Period")
-twst <- ggplotly(twoweeks.sumtests, height=625, width=1100)
 ```
 
 Total Cases {data-navmenu="Cases"}
@@ -169,8 +54,7 @@ The total number of cases as a function of time.
 This graph show more or less what we expect to see; over time, as more tests are conducted, we do expect to see more cases. Ultimately what we'd like to be seeing is a plateau, but given the rates at which cases are spiking all over the country, expecting that of UR is probably unfair.  
   
 
-**Date:**  
-`r  data[nrow(data),1]`  
+
 **Cases in past 24 hours:**  
 `r data[nrow(data), 3]`  
 **Tests in past 24 hours:**  
@@ -178,12 +62,17 @@ This graph show more or less what we expect to see; over time, as more tests are
 **Positivity Rate in Past 24 Hours:**  
 `r data[nrow(data), 4]*100`\%  
 
-Row {data-height=675}
+Row 
 -----------------------------------------------------------------------
 
 ### Raw lineplot
 
-```{r}
+```{r, echo=FALSE, eval=TRUE}
+cumlcases <- ggplot(data, aes(x = Date, y = totcases)) +
+              geom_line() +
+              scale_y_continuous(breaks=seq(0, max(data$totcases)+5 ,5)) +  
+              labs(x = "Date", y = "Total Cases (to Date)", title = "Cumulative cases as a function of time")
+cc <- ggplotly(cumlcases, height=650, width=1100)
 cc
 ```
 
@@ -196,8 +85,7 @@ Inputs {.sidebar}
 
 Total tests conducted. Again, this is more or less what we expect to see. Over time, the number of total tests conducted (assuming they don't simply *stop* testing people) will continue to increase without limit. What is the rate of this increase (explored in greater detail via other charts). To highlight here are August 16-17, where the first glut of students began to arrive back on campus, and November 16-17, when the University began use of the so-called "Rapid" tests. The true reliability rate of these latter tests is unknown, especially when used on asymptomatic persons, so while I would like to be able to distinguish between the types of tests used, this is made *very* difficult by the lack of test-specific data from the university.  
 
-**Date:**  
-`r  data[nrow(data),1]`  
+
 **Cases in past 24 hours:**  
 `r data[nrow(data), 3]`  
 **Tests in past 24 hours:**  
@@ -205,12 +93,16 @@ Total tests conducted. Again, this is more or less what we expect to see. Over t
 **Positivity Rate in Past 24 Hours:**  
 `r data[nrow(data), 4]*100`\%  
 
-Row {data-height=675}
+Row 
 -----------------------------------------------------------------------
 
 ### Raw lineplot
 
-```{r}
+```{r, eval=TRUE, echo=FALSE}
+cumltests <- ggplot(data, aes(x = Date, y = tottests)) +
+              geom_line() +
+              labs(x = "Date", y = "Number of Tests", title = "Cumulative Testing as a function of time")
+ct <- ggplotly(cumltests, height=650, width=1100)
 ct
 ```
 
@@ -231,12 +123,17 @@ Daily positivity rate. This is perhaps the most important statistic that can be 
 **Positivity Rate in Past 24 Hours:**  
 `r data[nrow(data), 4]*100`\%  
 
-Row {.tabset data-height=675}
+Row {.tabset}
 -----------------------------------------------------------------------
 
 ### Raw lineplot
 
-```{r}
+```{r, echo=FALSE, eval=TRUE}
+dailyposrate <- ggplot(data, aes(x = Date, y = daily.prate)) +
+                geom_line() + 
+                labs(x = "Date", y = "Positivity Rate", title = "Daily positivity rate",
+                     subtitle = "Aligned right")
+dpr <- ggplotly(dailyposrate, height=650, width=1100)
 dpr
 ```
 
@@ -244,7 +141,12 @@ dpr
 
 ### Smoothed with a GAM
 
-```{r}
+```{r, echo=FALSE, eval=TRUE}
+GAM.dailyposrate <- ggplot(data, aes(x = Date, y = daily.prate)) +
+                    geom_smooth(method = "gam", size = 1) + 
+                    labs(x = "Date", y = "Positivity Rate", title = "Daily positivity rate",
+                         subtitle = "Aligned right")
+GAM.dpr <- ggplotly(GAM.dailyposrate, height=650, width=1100)
 GAM.dpr
 ```
 
@@ -256,8 +158,7 @@ Inputs {.sidebar}
 -----------------------------------------------------------------------
 Rolling Average Positivity Rate (window of n=7). By using a rolling average of the daily positivity rate over a window of 1 week, we accomplish a similar feat to smoothing it with a GAM while still retaining information that may otherwise have been glossed over. Further, it provides a metric that many states/local governments use in determining the severity of a given outbreak (eg, previous iterations of NY State's travel advisory). While there is an argument to be made for using static windows of 14 days, or 2 weeks, as this is what NY uses in determining if a "pause" must be initiated, I feel like that's a bit misleading of a statistic. For one, cases don't simply "disappear" after that 14 day window finishes and we move into the next. So while, yes, a 7 day rolling average doesn't do a perfect job of capturing and charting active cases, I feel like it does a better enough job of it to justify its use vs a static window.  
   
-**Date:**  
-`r  data[nrow(data),1]`  
+  
 **Cases in past 24 hours:**  
 `r data[nrow(data), 3]`  
 **Tests in past 24 hours:**  
@@ -266,12 +167,17 @@ Rolling Average Positivity Rate (window of n=7). By using a rolling average of t
 `r data[nrow(data), 4]*100`\%  
 
 
-Row {.tabset data-height=675}
+Row {.tabset}
 -----------------------------------------------------------------------
 
 ### Raw lineplot
 
-```{r}
+```{r, eval=TRUE, echo=FALSE}
+rollposrate <- ggplot(data, aes(x = Date, y = rolldaily.prate)) +
+                geom_line() + 
+                labs(x = "Date", y = "Positivity Rate", title = "7 day rolling positivity rate",
+                     subtitle = "Aligned right")
+rpr <- ggplotly(rollposrate, height=650, width=1100)
 rpr
 ```
 
@@ -280,10 +186,24 @@ rpr
 
 ### Smoothed with a GAM
 
-```{r}
+```{r, echo=FALSE, eval=TRUE}
+GAM.rollposrate <- ggplot(data, aes(x = Date, y = rolldaily.prate)) +
+                    geom_smooth(method = "gam", size = 1) + 
+                    labs(x = "Date", y = "Positivity Rate", title = "7 day rolling positivity rate",
+                         subtitle = "Aligned right")
+GAM.rpr <- ggplotly(GAM.rollposrate, height=650, width=1100)
 GAM.rpr
 ```
 
+
+A Note About Positivity Rates {data-navmenu="Positivity Rates"}
+=====================================
+
+### Positivity Rates of 100\%
+
+There are now a handful of days where the number of tests conducted is smaller than the number of positive cases recorded. At the time of writing (12/28/2020), those dates are: 10/27/20, 12/26/20, 12/27/20, 12/28/20. Prior to this time, I chose to record days on which this unfortunate condition was met as having "0"\% positivity rate. This isn't correct, obviously, but the alternatives were not reporting the day (which was infeasible since there were cases on those days), reporting a divide by 0 error (infeasible since this would graphically result in the same as above), or setting the positivity rate to infinity (infeasible due to its impact on the rolling positivity rate).  
+The previous method sufficed should there only be one or two days where the testing failed to report an accurate positivity rate, but now that there are 4 such days, a number I fully expect to increase, this isn't a tenable solution. As such, the new method is to set the positivity rate for such days to be 100\%. This, too, is not ideal given the impact that it will have on the rolling statistics, but this is a rather appropriate penalty for inadequate testing on those days.  
+At this time, this penalty is constant; that is, regardless of whether there were 0 tests conducted with 1 case self-reported, or 2 tests conducted with 20 cases self reported, the positivity rate will be set to 100\%. In the future, this may change to a linear penalty, but I'm yet to make a decision on how best to address that. I will update this section in the future should such changes be made. Again, please contact me at `elisun@me.com` with any suggestions/comments/critiques.  
 
 Rolling tests/day {data-navmenu="Testing"}
 =====================================  
@@ -304,19 +224,29 @@ My thanks to Dean Runner for this information.
 **Positivity Rate in Past 24 Hours:**  
 `r data[nrow(data), 4]*100`\%  
 
-Row {.tabset data-height=675}
+Row {.tabset}
 -----------------------------------------------------------------------
 
 ### Raw lineplot
 
-```{r}
+```{r, echo=FALSE, eval=TRUE}
+rolltestsgraph <- ggplot(data, aes(x=Date, y=rolltests)) + 
+                    geom_line()+
+                    labs(x="Date", y="Tests Conducted", title = "7 day rolling tests per day",
+                         subtitle = "Aligned Right")
+rtg <- ggplotly(rolltestsgraph, height=650, width=1100)
 rtg
 ```
 
 
 ### Smoothed with a GAM
 
-```{r}
+```{r, echo=FALSE, eval=TRUE}
+GAM.rolltestsgraph <- ggplot(data, aes(x=Date, y=rolltests)) + 
+                        geom_smooth(method = "gam", size = 1) +
+                        labs(x="Date", y="Tests Conducted", title = "7 day rolling tests per day",
+                             subtitle = "Aligned Right")
+GAM.rtg <- ggplotly(GAM.rolltestsgraph, height=650, width=1100)
 GAM.rtg
 ```
 
@@ -338,12 +268,16 @@ As another note, to preempt the thought, no, testing does not result in more cas
 **Positivity Rate in Past 24 Hours:**  
 `r data[nrow(data), 4]*100`\%  
 
-Row {.tabset data-height=675}
+Row {.tabset}
 -----------------------------------------------------------------------
 
 ### Raw lineplot
 
-```{r}
+```{r, echo=FALSE, eval=TRUE}
+casesperday <- ggplot(data, aes(x=Date, y=Positive)) + 
+                geom_line()+
+                labs(x = "Date", y = "Cases", title = "New cases per day")
+cpd <- ggplotly(casesperday, height=650, width=1100)
 cpd
 ```
 
@@ -351,7 +285,11 @@ cpd
 
 ### Smoothed with a GAM
 
-```{r}
+```{r, echo=FALSE, eval=TRUE}
+GAM.casesperday <- ggplot(data, aes(x=Date, y=Positive)) + 
+                    geom_smooth()+
+                    labs(x = "Date", y = "Cases", title = "New cases per day")
+GAM.cpd <- ggplotly(GAM.casesperday, height=650, width=1100)
 GAM.cpd
 ```
 
@@ -366,8 +304,7 @@ Average tests performed per day. The same as rolling average tests per day, but 
 Since the creation of this dashboard, Dean Runner responded to an email expressing my concerns and questions regarding the underlying data. According to this reply, there were approximately 3200 students. To quote Dean Runner on the number 400 was reached: "The number 400 was determined in consultation with Dr. Rob Strawderman, the Chair of Biostatistics in the Medical Center, who worked with the team to identify an appropriate threshold at which we could be confident that a certain number of positive results in a week would indicate a certain level of infection increase."  
 My thanks to Dean Runner for this information.  
 
-**Date:**  
-`r  data[nrow(data),1]`  
+
 **Cases in past 24 hours:**  
 `r data[nrow(data), 3]`  
 **Tests in past 24 hours:**  
@@ -376,12 +313,16 @@ My thanks to Dean Runner for this information.
 `r data[nrow(data), 4]*100`\%  
  
 
-Row {.tabset data-height=675}
+Row {.tabset}
 -----------------------------------------------------------------------
 
 ### Raw lineplot
 
-```{r}
+```{r, echo=FALSE, eval=TRUE}
+testsperday <- ggplot(data, aes(x=Date, y=Tests)) + 
+                geom_line()+
+                labs(x = "Date", y = "Tests", title = "Tests per day")
+tpd <- ggplotly(testsperday, height=650, width=1100)
 tpd
 ```
 
@@ -389,7 +330,11 @@ tpd
 
 ### Smoothed with a GAM
 
-```{r}
+```{r, echo=FALSE, eval=TRUE}
+GAM.testsperday <- ggplot(data, aes(x=Date, y=Tests)) + 
+                    geom_smooth(method = "gam", size=1)+
+                    labs(x = "Date", y = "Tests", title = "Tests per day")
+GAM.tpd <- ggplotly(GAM.testsperday, height=650, width=1100)
 GAM.tpd
 ```
 
@@ -404,8 +349,7 @@ Average tests per day per week/fortnight. This is primarily for keeping the Univ
 Since the creation of this dashboard, Dean Runner responded to an email expressing my concerns and questions regarding the underlying data. According to this reply, there were approximately 3200 students. To quote Dean Runner on the number 400 was reached: "The number 400 was determined in consultation with Dr. Rob Strawderman, the Chair of Biostatistics in the Medical Center, who worked with the team to identify an appropriate threshold at which we could be confident that a certain number of positive results in a week would indicate a certain level of infection increase."  
 My thanks to Dean Runner for this information.  
 
-**Date:**  
-`r  data[nrow(data),1]`  
+
 **Cases in past 24 hours:**  
 `r data[nrow(data), 3]`  
 **Tests in past 24 hours:**  
@@ -413,12 +357,17 @@ My thanks to Dean Runner for this information.
 **Positivity Rate in Past 24 Hours:**  
 `r data[nrow(data), 4]*100`\%  
 
-Row {.tabset data-height=675}
+Row {.tabset}
 -----------------------------------------------------------------------
 
 ### 7 day blocks
 
-```{r}
+```{r, echo=FALSE, eval=TRUE}
+oneweek.avgtests <- ggplot(oneweekavg, aes(x=as.numeric(Group.1), y=Tests)) +
+                      geom_line() + 
+                      labs(x="Weeks since August 1", title="Average Tests Over Time Period", 
+                           subtitle = "Temporal mean, t=7")
+owat <- ggplotly(oneweek.avgtests, height=625, width=1100)
 owat
 ```
 
@@ -427,7 +376,12 @@ owat
 
 ### 14 day blocks
 
-```{r}
+```{r, echo=FALSE, eval=TRUE}
+twoweeks.avgtests <- ggplot(twoweeksavg, aes(x=as.numeric(Group.1), y=Tests)) +
+                      geom_line() + 
+                      labs(x="Fortnights since August 1", title="Average Tests Over Time Period", 
+                           subtitle = "Temporal mean, t=14")
+twsat <- ggplotly(twoweeks.avgtests, height=625, width=1100)
 twsat
 ```
 
@@ -443,8 +397,7 @@ Cumulative tests per week/fortnight. Since the University said they would be per
 Since the creation of this dashboard, Dean Runner responded to an email expressing my concerns and questions regarding the underlying data. According to this reply, there were approximately 3200 students. To quote Dean Runner on the number 400 was reached: "The number 400 was determined in consultation with Dr. Rob Strawderman, the Chair of Biostatistics in the Medical Center, who worked with the team to identify an appropriate threshold at which we could be confident that a certain number of positive results in a week would indicate a certain level of infection increase."  
 My thanks to Dean Runner for this information.  
 
-**Date:**  
-`r  data[nrow(data),1]`  
+
 **Cases in past 24 hours:**  
 `r data[nrow(data), 3]`  
 **Tests in past 24 hours:**  
@@ -452,12 +405,16 @@ My thanks to Dean Runner for this information.
 **Positivity Rate in Past 24 Hours:**  
 `r data[nrow(data), 4]*100`\%  
 
-Row {.tabset data-height=675}
+Row {.tabset}
 -----------------------------------------------------------------------
 
 ### 7 day blocks
 
-```{r}
+```{r, echo=FALSE, eval=TRUE}
+oneweek.sumtests <- ggplot(oneweeksum, aes(x=as.numeric(Group.1), y=Tests)) +
+                      geom_line() + 
+                      labs(x="Weeks since August 1", title="Cumulative Tests Time Period")
+owst <- ggplotly(oneweek.sumtests, height=625, width=1100)
 owst
 ```
 
@@ -466,7 +423,11 @@ owst
 
 ### 14 day blocks
 
-```{r}
+```{r, echo=FALSE, eval=TRUE}
+twoweeks.sumtests <- ggplot(twoweekssum, aes(x=as.numeric(Group.1), y=Tests)) +
+                      geom_line() + 
+                      labs(x="Fortnights since August 1", title="Cumulative Tests Time Period")
+twst <- ggplotly(twoweeks.sumtests, height=625, width=1100)
 twst
 ```
 
@@ -477,12 +438,6 @@ A Note About GAMs
 
 ### GAMs and GAM smoothing
 
-The graphs marked "Smoothed with a GAM" are exactly that: the raw lineplot, but smoothed with a Generalized Additive Model (GAM). These are **NOT** forecasts. Not only do I not know forecast without knowing the underlying population size and several other key measures, but I don't know how to do it at all. While I could learn, I am not an epidemiologist and there are many, many wonderful people out there doing forecasts for COVID-19 cases/deaths who already know what they're doing (and do it really, really well).  
+The graphs marked "Smoothed with a GAM" are exactly that: the raw lineplot, but smoothed with a Generalized Additive Model (GAM). These are **NOT** forecasts. While I am in the process of learning more about time series analysis and ML methods for forcasting at various time steps, I am not an epidemiologist and there are many, many wonderful people out there doing forecasts for COVID-19 cases/deaths who already know what they're doing (and do it really, really well).  
 So why do I include these charts at all, then? Humans are really not great at interpreting raw lineplots for time series data. In the short term they're super jagged and don't provide super clear information for how things are changing over time. This is where smoothing helps. By smoothing the data, it's easier to see how the given Y-axis data changes with respect to time. Since it's smoothed, it loses a level of precision/accuracy, so it is by no means the best way to approach it, but the convenience of GAM smoothing being built into `ggplot2` combined with "good enough" accuracy made it my first choice. If anyone has a better idea/technique that I didn't think of, please reach out to me at `elisun@me.com`. I don't want to be misrepresenting any of the data, so I'm open to suggestions for how I can improve it.
 
-A Note About Positivity Rates
-=====================================  
-# Positivity Rates of 100\%
-There are now a handful of days where the number of tests conducted is smaller than the number of positive cases recorded. At the time of writing (12/28/2020), those dates are: 10/27/20, 12/26/20, 12/27/20, 12/28/20. Prior to this time, I chose to record days on which this unfortunate condition was met as having "0"\% positivity rate. This isn't correct, obviously, but the alternatives were not reporting the day (which was infeasible since there were cases on those days), reporting a divide by 0 error (infeasible since this would graphically result in the same as above), or setting the positivity rate to infinity (infeasible due to its impact on the rolling positivity rate).  
-The previous method sufficed should there only be one or two days where the testing failed to report an accurate positivity rate, but now that there are 4 such days, a number I fully expect to increase, this isn't a tenable solution. As such, the new method is to set the positivity rate for such days to be 100\%. This, too, is not ideal given the impact that it will have on the rolling statistics, but this is a rather appropriate penalty for inadequate testing on those days.  
-At this time, this penalty is constant; that is, regardless of whether there were 0 tests conducted with 1 case self-reported, or 2 tests conducted with 20 cases self reported, the positivity rate will be set to 100\%. In the future, this may change to a linear penalty, but I'm yet to make a decision on how best to address that. I will update this section in the future should such changes be made. Again, please contact me at `elisun@me.com` with any suggestions/comments/critiques.
