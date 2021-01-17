@@ -4,3 +4,4 @@ my_packages <- c("readxl", "tidyverse", "zoo", "RcppRoll",
                  "gridExtra", "grid", "plotly", "htmlwidgets")
 packages(my_packages)
 libraries(my_packages)
+rm(my_packages)
