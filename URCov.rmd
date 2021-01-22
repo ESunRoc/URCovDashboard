@@ -49,7 +49,7 @@ Row
 ```{r, echo=FALSE, eval=TRUE}
 cumlcases <- ggplot(data, aes(x = Date, y = totcases)) +
               geom_line() +
-              scale_y_continuous(breaks=seq(0, max(data$totcases)+5 ,5)) +  
+              scale_y_continuous(breaks=seq(0, max(data$totcases)+10 ,10)) +  
               labs(x = "Date", y = "Total Cases", title = "Cumulative cases as a function of time")
 cc <- ggplotly(cumlcases, height=650, width=1100)
 cc
