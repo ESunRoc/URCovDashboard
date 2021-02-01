@@ -39,7 +39,7 @@ This graph show more or less what we expect to see; over time, as more tests are
 **Tests in past 24 hours:**  
 `r data[nrow(data), 2]`  
 **Positivity Rate in Past 24 Hours:**  
-`r data[nrow(data), 4]*100`\%  
+`r round(data[nrow(data), 4]*100, digits=4)`\%  
 
 Row 
 -----------------------------------------------------------------------
@@ -70,7 +70,7 @@ Total tests conducted. Again, this is more or less what we expect to see. Over t
 **Tests in past 24 hours:**  
 `r data[nrow(data), 2]`  
 **Positivity Rate in Past 24 Hours:**  
-`r data[nrow(data), 4]*100`\%  
+`r round(data[nrow(data), 4]*100, digits=4)`\%  
 
 Row 
 -----------------------------------------------------------------------
@@ -100,7 +100,7 @@ Daily positivity rate. This is perhaps the most important statistic that can be 
 **Tests in past 24 hours:**  
 `r data[nrow(data), 2]`  
 **Positivity Rate in Past 24 Hours:**  
-`r data[nrow(data), 4]*100`\%  
+`r round(data[nrow(data), 4]*100, digits=4)`\%  
 
 Row {.tabset}
 -----------------------------------------------------------------------
@@ -143,7 +143,7 @@ Rolling Average Positivity Rate (window of n=7). By using a rolling average of t
 **Tests in past 24 hours:**  
 `r data[nrow(data), 2]`  
 **Positivity Rate in Past 24 Hours:**  
-`r data[nrow(data), 4]*100`\%  
+`r round(data[nrow(data), 4]*100, digits=4)`\%  
 
 
 Row {.tabset}
@@ -201,7 +201,7 @@ My thanks to Dean Runner for this information.
 **Tests in past 24 hours:**  
 `r data[nrow(data), 2]`  
 **Positivity Rate in Past 24 Hours:**  
-`r data[nrow(data), 4]*100`\%  
+`r round(data[nrow(data), 4]*100, digits=4)`\%  
 
 Row {.tabset}
 -----------------------------------------------------------------------
@@ -245,7 +245,7 @@ As another note, to preempt the thought, no, testing does not result in more cas
 **Tests in past 24 hours:**  
 `r data[nrow(data), 2]`  
 **Positivity Rate in Past 24 Hours:**  
-`r data[nrow(data), 4]*100`\%  
+`r round(data[nrow(data), 4]*100, digits=4)`\%  
 
 Row {.tabset}
 -----------------------------------------------------------------------
@@ -289,7 +289,7 @@ My thanks to Dean Runner for this information.
 **Tests in past 24 hours:**  
 `r data[nrow(data), 2]`  
 **Positivity Rate in Past 24 Hours:**  
-`r data[nrow(data), 4]*100`\%  
+`r round(data[nrow(data), 4]*100, digits=4)`\%  
  
 
 Row {.tabset}
@@ -334,7 +334,7 @@ My thanks to Dean Runner for this information.
 **Tests in past 24 hours:**  
 `r data[nrow(data), 2]`  
 **Positivity Rate in Past 24 Hours:**  
-`r data[nrow(data), 4]*100`\%  
+`r round(data[nrow(data), 4]*100, digits=4)`\%  
 
 Row {.tabset}
 -----------------------------------------------------------------------
@@ -382,7 +382,7 @@ My thanks to Dean Runner for this information.
 **Tests in past 24 hours:**  
 `r data[nrow(data), 2]`  
 **Positivity Rate in Past 24 Hours:**  
-`r data[nrow(data), 4]*100`\%  
+`r round(data[nrow(data), 4]*100, digits=4)`\%  
 
 Row {.tabset}
 -----------------------------------------------------------------------
