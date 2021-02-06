@@ -270,6 +270,50 @@ GAM.cpd
 ```
 
 
+Rolling cases per day {data-navmenu="Cases"}
+=====================================  
+Inputs {.sidebar}
+-----------------------------------------------------------------------
+  
+Rolling Average of new cases per day. This is being created in response to President Manglesdorf and Dean Runner's recent statements on the uptick of cases on campus (emails received 2/5/21). These emails made note that there was an uptick in the number of cases, saying that the number of cases over the last few days was equal to that of the first 3 months of fall semester. This is technically true, but it isn't a new trend and advertising as such is grossly misleading. Cases have been trending upwards for the whole of winter break and into the spring. This corresponds to the increase in cases in the western upstate New York area, but this does not preclude criticism of the UR in both its response to the pandemic in general, as well as its inconsistent and poor messaging in that regard. The question one is forced to ask is rather simple: Why is the University sending messages warning of an "uptick in cases," when the uptick is actually more of a plateau? Is it due to the population(s) being infected? It is true that many of the infections over winter break were of faculty and staff, not students; though this should certainly not affect how much the University cares. Or is it because the fate of the in-person semester is at stake? Again, this is true, but students' health and safety was/is at risk regardless, so that is (hopefully) also not the case.
+
+**Date:**  
+`r  data[nrow(data),1]`  
+**Cases in past 24 hours:**  
+`r data[nrow(data), 3]`  
+**Tests in past 24 hours:**  
+`r data[nrow(data), 2]`  
+**Positivity Rate in Past 24 Hours:**  
+`r round(data[nrow(data), 4]*100, digits=4)`\%  
+
+Row {.tabset}
+-----------------------------------------------------------------------
+
+### Raw lineplot
+
+```{r, echo=FALSE, eval=TRUE}
+rollcases <- ggplot(data, aes(x = Date, y = rollcases)) +
+  geom_line() + 
+  labs(x = "Date", y = "Cases", title = "7 day rolling Cases per Day",
+       subtitle = "Aligned right")
+rcases <- ggplotly(rollcases)
+rcases
+```
+
+
+
+### Smoothed with a GAM
+
+```{r, echo=FALSE, eval=TRUE}
+GAM.rollcases <- ggplot(data, aes(x = Date, y = rollcases)) +
+  geom_smooth(method = "gam", size = 1) + 
+  labs(x = "Date", y = "Cases", title = "7 day rolling Cases per Day",
+       subtitle = "Aligned right")
+GAM.rases <- ggplotly(GAM.rollcases)
+GAM.rases
+```
+
+
 Tests per day {data-navmenu="Testing"}
 =====================================  
 Inputs {.sidebar}

@@ -3,7 +3,7 @@ data$daily.prate <- ifelse(data$Tests<data$Positive, 1, ifelse(data$Tests==0, 0,
 data$totcases <- cumsum(data$Positive)
 data$tottests <- cumsum(data$Tests)
 data$rolltests <- rollmean(data$Tests, k=7, fill=F, align="right")
-data$rollpos <- rollmean(data$Positive, k=7, fill=F, align="right")
+data$rollcases <- rollmean(data$Positive, k=7, fill=F, align="right")
 data$rolldaily.prate <- rollmean(data$daily.prate, k=7, fill=NA, align="right")
 data$daynum <- seq(1, length(data$Date))
 n.colfunc <- function(df, n=7, func){
