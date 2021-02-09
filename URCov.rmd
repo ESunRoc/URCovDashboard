@@ -447,18 +447,34 @@ twst
 
 
 
-A Note About GAMs
-=====================================  
 
+
+Notes
+=====================================  
 ### GAMs and GAM smoothing
-
 The graphs marked "Smoothed with a GAM" are exactly that: the raw lineplot, but smoothed with a Generalized Additive Model (GAM). These are **NOT** forecasts. While I am in the process of learning more about time series analysis and ML methods for forcasting at various time steps, I am not an epidemiologist and there are many, many wonderful people out there doing forecasts for COVID-19 cases/deaths who already know what they're doing (and do it really, really well).  
-So why do I include these charts at all, then? Humans are really not great at interpreting raw lineplots for time series data. In the short term they're super jagged and don't provide super clear information for how things are changing over time. This is where smoothing helps. By smoothing the data, it's easier to see how the given Y-axis data changes with respect to time. Since it's smoothed, it loses a level of precision/accuracy, so it is by no means the best way to approach it, but the convenience of GAM smoothing being built into `ggplot2` combined with "good enough" accuracy made it my first choice. If anyone has a better idea/technique that I didn't think of, please reach out to me at `elisun@me.com`. I don't want to be misrepresenting any of the data, so I'm open to suggestions for how I can improve it.
-
-
-Misc. Notes
-=====================================  
-
+So why do I include these charts at all, then? Humans are really not great at interpreting raw lineplots for time series data. In the short term they're super jagged and don't provide super clear information for how things are changing over time. This is where smoothing helps. By smoothing the data, it's easier to see how the given Y-axis data changes with respect to time. Since it's smoothed, it loses a level of precision/accuracy, so it is by no means the best way to approach it, but the convenience of GAM smoothing being built into `ggplot2` combined with "good enough" accuracy made it my first choice. If anyone has a better idea/technique that I didn't think of, please reach out to me at `elisun@me.com`. I don't want to be misrepresenting any of the data, so I'm open to suggestions for how I can improve it.  
+  
 ### Fall 2020 Student Population and Testing Justification
 Since the creation of this dashboard, Dean Runner responded to an email expressing my concerns and questions regarding the underlying data. According to this reply, there were approximately 3200 students. To quote Dean Runner on the number 400 was reached: "The number 400 was determined in consultation with Dr. Rob Strawderman, the Chair of Biostatistics in the Medical Center, who worked with the team to identify an appropriate threshold at which we could be confident that a certain number of positive results in a week would indicate a certain level of infection increase."  
 My thanks to Dean Runner for this information.
+
+Data
+=====================================  
+
+```{r, eval=TRUE, echo=FALSE}
+tabdata <- data[1:9]
+dt_data <- data.frame("Date" = as.Date(tabdata$Date), 
+                      "Tests"=tabdata$Tests, 
+                      "Cases"=round(tabdata$Positive, digits=6), 
+                      "Pos Rate" = round(tabdata$daily.prate, digits=6), 
+                      "Total Cases" = tabdata$totcases, 
+                      "Total Tests" = tabdata$tottests, 
+                      "Roll Pos Rate"=round(ifelse(is.na(tabdata$rolldaily.prate)==1, 
+                                                   0, tabdata$rolldaily.prate), digits=6),
+                      "Roll Cases" = round(tabdata$rollcases, digits=6),
+                      "Roll Tests" = round(tabdata$rolltests, digits=6)
+                      )
+DT::datatable(dt_data, options = list(
+  pageLength=50, scrollX='400px'), filter = 'top')
+```
