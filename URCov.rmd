@@ -174,14 +174,9 @@ GAM.rpr
 ```
 
 
-A Note About Positivity Rates {data-navmenu="Positivity Rates"}
-=====================================
 
-### Positivity Rates of 100\%
 
-There are now a handful of days where the number of tests conducted is smaller than the number of positive cases recorded. At the time of writing (12/28/2020), those dates are: 10/27/20, 12/26/20, 12/27/20, 12/28/20. Prior to this time, I chose to record days on which this unfortunate condition was met as having "0"\% positivity rate. This isn't correct, obviously, but the alternatives were not reporting the day (which was infeasible since there were cases on those days), reporting a divide by 0 error (infeasible since this would graphically result in the same as above), or setting the positivity rate to infinity (infeasible due to its impact on the rolling positivity rate).  
-The previous method sufficed should there only be one or two days where the testing failed to report an accurate positivity rate, but now that there are 4 such days, a number I fully expect to increase, this isn't a tenable solution. As such, the new method is to set the positivity rate for such days to be 100\%. This, too, is not ideal given the impact that it will have on the rolling statistics, but this is a rather appropriate penalty for inadequate testing on those days.  
-At this time, this penalty is constant; that is, regardless of whether there were 0 tests conducted with 1 case self-reported, or 2 tests conducted with 20 cases self reported, the positivity rate will be set to 100\%. In the future, this may change to a linear penalty, but I'm yet to make a decision on how best to address that. I will update this section in the future should such changes be made. Again, please contact me at `elisun@me.com` with any suggestions/comments/critiques.  
+
 
 Rolling tests/day {data-navmenu="Testing"}
 =====================================  
@@ -458,6 +453,16 @@ So why do I include these charts at all, then? Humans are really not great at in
 ### Fall 2020 Student Population and Testing Justification
 Since the creation of this dashboard, Dean Runner responded to an email expressing my concerns and questions regarding the underlying data. According to this reply, there were approximately 3200 students. To quote Dean Runner on the number 400 was reached: "The number 400 was determined in consultation with Dr. Rob Strawderman, the Chair of Biostatistics in the Medical Center, who worked with the team to identify an appropriate threshold at which we could be confident that a certain number of positive results in a week would indicate a certain level of infection increase."  
 My thanks to Dean Runner for this information.
+
+### Positivity Rates of 100\%
+
+There are now a handful of days where the number of tests conducted is smaller than the number of positive cases recorded. At the time of writing (12/28/2020), those dates are: 10/27/20, 12/26/20, 12/27/20, 12/28/20. Prior to this time, I chose to record days on which this unfortunate condition was met as having "0"\% positivity rate. This isn't correct, obviously, but the alternatives were not reporting the day (which was infeasible since there were cases on those days), reporting a divide by 0 error (infeasible since this would graphically result in the same as above), or setting the positivity rate to infinity (infeasible due to its impact on the rolling positivity rate).  
+The previous method sufficed should there only be one or two days where the testing failed to report an accurate positivity rate, but now that there are 4 such days, a number I fully expect to increase, this isn't a tenable solution. As such, the new method is to set the positivity rate for such days to be 100\%. This, too, is not ideal given the impact that it will have on the rolling statistics, but this is a rather appropriate penalty for inadequate testing on those days.  
+At this time, this penalty is constant; that is, regardless of whether there were 0 tests conducted with 1 case self-reported, or 2 tests conducted with 20 cases self reported, the positivity rate will be set to 100\%. In the future, this may change to a linear penalty, but I'm yet to make a decision on how best to address that. I will update this section in the future should such changes be made. Again, please contact me at `elisun@me.com` with any suggestions/comments/critiques.  
+
+### Discrepancies in the Data
+
+If one were to check the official UR dashboard, it is reported that there have been a total of 220 cases since August 1. This dashboard, however, only notes that there have been 216. Why? Because this dashboard was started during the course of the official's daily updates; that is to say, I didn't have the ability to go back and see each individual day's report, only the information on the singular graph. And that data is inconsistent. This is most clearly demonstrated by the reporting of 3 positive cases on 89 tests on 2/3/2021 that were reported on that day, and subsequently added into the "Total positive cases since August 1," text box, but were not reflected on the graph. I was able to catch this discrepancy because I was looking at a day-to-day reports by that point for data collection. Such was not the case wherever/whenever the missing 4 cases appeared. I've emailed CURT requesting this information but have, like the majority of my emails, not received a reply. I will update this is I receive an answer to my inquiry.
 
 Data
 =====================================  
