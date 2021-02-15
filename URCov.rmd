@@ -464,6 +464,11 @@ At this time, this penalty is constant; that is, regardless of whether there wer
 
 If one were to check the official UR dashboard, it is reported that there have been a total of 220 cases since August 1. This dashboard, however, only notes that there have been 216. Why? Because this dashboard was started during the course of the official's daily updates; that is to say, I didn't have the ability to go back and see each individual day's report, only the information on the singular graph. And that data is inconsistent. This is most clearly demonstrated by the reporting of 3 positive cases on 89 tests on 2/3/2021 that were reported on that day, and subsequently added into the "Total positive cases since August 1," text box, but were not reflected on the graph. I was able to catch this discrepancy because I was looking at a day-to-day reports by that point for data collection. Such was not the case wherever/whenever the missing 4 cases appeared. I've emailed CURT requesting this information but have, like the majority of my emails, not received a reply. I will update this is I receive an answer to my inquiry.
 
+### UR's Dashboard Update
+
+On 2/15/2021, the official UR dashboard received its second "upgrade," since the start of the pandemic in March 2020. The only substanative change was the splitting of tests and cases into two distinct, now stacked, graphs. This solves for the problem of trying to show up to 500 tests on the same scale as 8 positive cases, for example. But this was only one of the problems facing UR's implementation, and a problem with a 15 second solution that took nearly a full calendar year to fix.
+
+
 Data
 =====================================  
 
